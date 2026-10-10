@@ -1,5 +1,6 @@
 import pygame
-from classes import Background, Button
+from classes import Background, Button, Text
+import time
 
 #Function to move the ball through the list
 def advance_ball(ball, path, index):
@@ -25,13 +26,14 @@ Sbtn =Button(p1Img, 0.4,700,200)
 
 game=""
 
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
     bg.draw(screen)
-
+    
     if Sbtn.draw(screen):
         game = "single"
         break
@@ -78,19 +80,56 @@ if game == "single":
     (587, 149), (589, 162), (590, 179), (592, 200), (595, 225), (597, 254), (600, 288), 
     (610, 341), (621, 394), (631, 448), (642, 501), (652, 554)
     ]
-    MISS_PATH = [(586, 350), (606, 307), (625, 269), (642, 238), (659, 212), (675, 192), 
-    (690, 178), (704, 169), (717, 167), (729, 170), (740, 179), (751, 194), (760, 215), 
-    (768, 242), (776, 274), (782, 313), (787, 357), (792, 407), (795, 462), (798, 524)
+    MISS_PATH = [ (586, 350), (596, 328), (606, 307),(616, 288), (625, 269), (634, 253),
+    (642, 238), (651, 225), (659, 212),(667, 202), (675, 192), (683, 184),(690, 178), (697, 173), 
+    (704, 169),(711, 167), (717, 167), (723, 168),(729, 170), (735, 174), (740, 179),(746, 186), 
+    (751, 194), (756, 204),(760, 215), (764, 228), (768, 242),(772, 258), (776, 274), (779, 293),
+    (782, 313), (785, 334), (787, 357),(789, 382), (792, 407), (793, 434),(795, 462), (796, 491), (798, 524)
     ]
+    
     path = []
     path_index =0
     shot_state ="idle"
+    score1 = 0
+    score2 = 0
+
+    #score images
+    scoreboardIMG = pygame.image.load("scoreboard.png")
+    n0IMG = pygame.image.load("0.png")
+    n1IMG = pygame.image.load("1.png")
+    n2IMG = pygame.image.load("2.png")
+    n3IMG = pygame.image.load("3.png")
+    n4IMG = pygame.image.load("4.png")
+    n5IMG = pygame.image.load("5.png")
+    n6IMG = pygame.image.load("6.png")
+    n7IMG = pygame.image.load("7.png")
+    n8IMG = pygame.image.load("8.png")
+    n9IMG = pygame.image.load("9.png")
+
+    scores = [n0IMG, n1IMG, n2IMG, n3IMG, n4IMG, n5IMG, n6IMG, n7IMG, n8IMG, n9IMG]
+
+    scoreboard = Background(scoreboardIMG,0.39,600,120)
+    score1BG = Background(scores[score1], 0.6, 565, 135)
+    score2BG =  Background(scores[score2], 0.6, 635, 135)
+
+    #Timer
+    timer = 60
+    start = time.time()
+
+    timeText = Text(screen, str(timer), 50, (8,0,0), 1000, 50, "ocraextended")
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+        end = time.time()
+        timePassed = end-start
+        if timePassed >= 1:
+            timer -= 1
+            start = time.time()
+            timeText = Text(screen, str(timer), 50, (8,0,0), 1000, 50, "agencyfb")
+
         keystate = pygame.key.get_pressed()
         wasCharging = charging
 
@@ -142,6 +181,13 @@ if game == "single":
             if 67 <= release <= 85:
                 print("make")
                 path = MAKE_PATH
+                if score1 != 9 or score2 != 9:
+                    score2 += 1
+                    if score2 > 9:
+                        score2 = 0
+                        score1 += 1
+                    score1BG = Background(scores[score1], 0.6, 565, 135)
+                    score2BG =  Background(scores[score2], 0.6, 635, 135)
             else:
                 print("miss")
                 path = MISS_PATH
@@ -156,9 +202,16 @@ if game == "single":
             
 
         halfCourt.draw(screen)
+        scoreboard.draw(screen)
+        score1BG.draw(screen)
+        score2BG.draw(screen)
         ball.draw(screen)
         player.draw(screen)
         meterCharging.draw(screen)
+        timeText.draw()
+
+        
+        
         
 
         pygame.display.update()
@@ -167,9 +220,13 @@ if game == "single":
 """
 Homework
 Github: https://github.com/AndrewPal04/Pygame-Basketball
-For homework, I want you to start building up the scoreboard.
-You should start with the background for the score, and get
-images for 1 through 9, so we can change the numbers depending
-on how many times the user has made the shot!
-Good Luck!
+For homework, I want you to use the following slideshow
+template to begin working on your final presentation slides!
+Try to complete as many slides as you can, and now that you
+created a program that has amazing visual images, make sure
+to add some of the pictures into your slideshow as backgrounds,
+extra pictures, or however you want.
+https://docs.google.com/presentation/d/1SvjGVSDHrpJ3E__emNbEpPLVFicQvc0u9rTCRFXXVmg/edit?usp=sharing
+
 """
+

@@ -215,16 +215,4 @@ if game == "single":
         pygame.display.update()
         clock.tick(60)
 
-"""
-Homework
-Github: https://github.com/AndrewPal04/Pygame-Basketball
-For homework, I want you to use the following slideshow
-template to begin working on your final presentation slides!
-Try to complete as many slides as you can, and now that you
-created a program that has amazing visual images, make sure
-to add some of the pictures into your slideshow as backgrounds,
-extra pictures, or however you want.
-https://docs.google.com/presentation/d/1SvjGVSDHrpJ3E__emNbEpPLVFicQvc0u9rTCRFXXVmg/edit?usp=sharing
-
-"""
 

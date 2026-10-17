@@ -133,9 +133,9 @@ if game == "single":
         keystate = pygame.key.get_pressed()
         wasCharging = charging
 
-        #For checking coordinates: 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print(pygame.mouse.get_pos())
+        # #For checking coordinates: 
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     print(pygame.mouse.get_pos())
 
         if keystate[pygame.K_SPACE]:
             charging = True
@@ -179,7 +179,6 @@ if game == "single":
         if not charging and wasCharging:
             release = meter
             if 67 <= release <= 85:
-                print("make")
                 path = MAKE_PATH
                 if score1 != 9 or score2 != 9:
                     score2 += 1
@@ -189,7 +188,6 @@ if game == "single":
                     score1BG = Background(scores[score1], 0.6, 565, 135)
                     score2BG =  Background(scores[score2], 0.6, 635, 135)
             else:
-                print("miss")
                 path = MISS_PATH
             path_index =0
             shot_state = "flying"
